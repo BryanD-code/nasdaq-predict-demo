@@ -7,6 +7,7 @@ notebook
 numpy
 pandas
 pip
+pyspark
 pytest
 python-dotenv
 ruff

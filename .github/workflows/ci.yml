@@ -1,6 +1,5 @@
 name: PySpark CI Pipeline
 
-# Se ejecuta cada vez que subas código a la rama principal
 on:
   push:
     branches: [ "main", "master" ]
@@ -15,27 +14,27 @@ jobs:
     - name: Descargar el repositorio
       uses: actions/checkout@v4
 
-    # Spark necesita Java por debajo para funcionar
     - name: Configurar Java 17
       uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
 
-    # Configuramos Python
     - name: Configurar Python 3.11
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
 
-    # Instalamos las librerías que te dieron guerra en local
+    # Le indicamos en qué carpeta trabajar
     - name: Instalar dependencias
+      working-directory: ./ML_demo_Nasdaq
       run: |
         python -m pip install --upgrade pip
         pip install pytest python-dotenv loguru typer tqdm
         pip install -e .
 
-    # Ejecutamos el test
+    # Le indicamos en qué carpeta lanzar los tests
     - name: Ejecutar Pytest
+      working-directory: ./ML_demo_Nasdaq
       run: |
         pytest tests/
